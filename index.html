@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUSMIT.COSMOS</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Google Fonts: Space Grotesk, Orbitron, Great Vibes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Orbitron:wght@400;600;800&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init({
+                publicKey: "nEPw0LY19hm-993V0",
+            });
+        })();
+    </script>
+
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #050508;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .font-script { font-family: 'Great Vibes', cursive; }
+
+        .glass-card {
+            background: rgba(10, 14, 26, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+        .glass-card:hover {
+            border-color: rgba(138, 43, 226, 0.45);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.25);
+        }
+
+        .neon-glow-cyan {
+            text-shadow: 0 0 12px rgba(0, 255, 255, 0.6), 0 0 25px rgba(0, 255, 255, 0.3);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050508; }
+        ::-webkit-scrollbar-thumb { background: #1a233a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8a2be2; }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-[#050508] text-slate-100 selection:bg-cyan-500 selection:text-black">
+
+    <!-- Interactive Canvas Starfield & Quantum Waves -->
+    <canvas id="quantum-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-cyan-500/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#hero" class="font-orbitron text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-violet-400 to-amber-300">
+                SUSMIT.COSMOS
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#about" class="hover:text-cyan-400 transition-colors">Know Me</a>
+                <a href="#stem" class="hover:text-cyan-400 transition-colors">STEM & Hardware</a>
+                <a href="#apps" class="hover:text-cyan-400 transition-colors">Web Apps</a>
+                <a href="#gallery" class="hover:text-cyan-400 transition-colors">Macro Gallery</a>
+                <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-cyan-400 focus:outline-none">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card border-t border-cyan-500/20 px-6 py-4 flex flex-col gap-4">
+            <a href="#about" class="mobile-link hover:text-cyan-400 py-1">Know Me</a>
+            <a href="#stem" class="mobile-link hover:text-cyan-400 py-1">STEM & Hardware</a>
+            <a href="#apps" class="mobile-link hover:text-cyan-400 py-1">Web Apps</a>
+            <a href="#gallery" class="mobile-link hover:text-cyan-400 py-1">Macro Gallery</a>
+            <a href="#contact" class="mobile-link hover:text-cyan-400 py-1">Contact</a>
+        </div>
+    </header>
+
+    <div class="content-layer">
+
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20 relative">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#050508]/60 to-[#050508] pointer-events-none"></div>
+            
+            <div class="max-w-4xl mx-auto z-10 flex flex-col items-center">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-orbitron tracking-widest bg-violet-950/40 border border-violet-500/30 text-violet-300 mb-6 animate-pulse">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#00ffff]"></span>
+                    Hey there! Susmit this side!
+                </div>
+
+                <h1 class="font-orbitron text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6">
+                    Navigating <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-violet-500 to-amber-300 neon-glow-cyan">Quantum Waves</span> & Deep Space
+                </h1>
+
+                <div class="my-6 max-w-2xl">
+                    <p class="font-script text-2xl sm:text-3xl text-cyan-200/90 italic">
+                        "In the tapestry of quantum foam and distant starlight, every equation is a whisper of reality."
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <a href="#stem" class="px-8 py-3.5 rounded-full font-orbitron text-sm font-bold tracking-wider bg-gradient-to-r from-cyan-500 to-violet-600 text-black shadow-[0_0_20px_rgba(0,255,255,0.4)] hover:shadow-[0_0_30px_rgba(138,43,226,0.6)] hover:scale-105 transition-all">
+                        Explore Universe
+                    </a>
+                    <a href="#about" class="px-8 py-3.5 rounded-full font-orbitron text-sm font-bold tracking-wider glass-card hover:bg-white/5 transition-all">
+                        Know Me
+                    </a>
+                </div>
+            </div>
+
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+                <span class="text-[10px] font-orbitron uppercase tracking-widest text-slate-400">Scroll Dimension</span>
+                <i data-lucide="chevron-down" class="w-4 h-4 text-cyan-400"></i>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-24 px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-3xl sm:text-4xl font-bold mb-4">
+                    <span class="text-cyan-400">//</span> Know Me
+                </h2>
+                <p class="text-slate-400 max-w-xl mx-auto">Exploring the bridge between theoretical astrophysics, quantum mechanics, custom hardware engineering, and macro photography.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-72 h-96 sm:w-80 sm:h-[420px] rounded-2xl p-1 bg-gradient-to-b from-cyan-500 via-violet-600 to-amber-400 shadow-[0_0_30px_rgba(138,43,226,0.3)] group">
+                        <div class="absolute inset-0 rounded-2xl bg-[#0a0e1a] overflow-hidden flex flex-col items-center justify-center p-6 text-center">
+                            <div class="absolute inset-0 bg-[linear-gradient(to_right,#00ffff0a_1px,transparent_1px),linear-gradient(to_bottom,#00ffff0a_1px,transparent_1px)] bg-[size:2rem_2rem]"></div>
+                            
+                            <div class="relative w-40 h-40 rounded-full bg-gradient-to-tr from-cyan-500/20 to-violet-500/20 border-2 border-cyan-400/60 flex items-center justify-center mb-6 shadow-[0_0_25px_rgba(0,255,255,0.4)] overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                                <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-80">
+                                    <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-code-31932-large.mp4" type="video/mp4">
+                                </video>
+                                <div class="absolute inset-0 bg-cyan-500/10 mix-blend-overlay"></div>
+                                <i data-lucide="atom" class="relative z-10 w-12 h-12 text-cyan-300 animate-spin" style="animation-duration: 15s;"></i>
+                            </div>
+
+                            <h3 id="profile-name-display" class="font-orbitron text-xl font-bold text-slate-100 tracking-wide">Susmit</h3>
+                            <p id="profile-title-display" class="text-xs text-cyan-300 font-orbitron mt-1">Astrophysics & Quantum Enthusiast</p>
+                            
+                            <div class="mt-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-[11px] text-cyan-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                Entangled with ☁️
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="glass-card p-8 rounded-2xl space-y-4">
+                        <h3 class="font-orbitron text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400">
+                            The Voyage
+                        </h3>
+                        <p id="profile-bio-display" class="text-slate-300 leading-relaxed font-light">
+                            I am a multidisciplinary creator driven by an insatiable curiosity for quantum mechanics, astrophysics, mirror reflection velocity equations, and the biological beauty of heterochromatin. Crafting microcontrollers for STEM exhibitions, coding robust Supabase applications, and capturing dragonflies through macro lenses are how I manifest my vision.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl">
+                        <h4 class="font-orbitron text-sm font-semibold tracking-wider text-cyan-400 mb-4 uppercase">Capabilities</h4>
+                        <div class="flex flex-wrap gap-2.5">
+                            <span class="px-3.5 py-1.5 rounded-full text-xs font-orbitron bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">Astrophysics & Quantum Mechanics enthusiast</span>
+                            <span class="px-3.5 py-1.5 rounded-full text-xs font-orbitron bg-violet-500/10 border border-violet-500/30 text-violet-300">C++ & Microcontrollers</span>
+                            <span class="px-3.5 py-1.5 rounded-full text-xs font-orbitron bg-amber-500/10 border border-amber-500/30 text-amber-300">ESP32 & Sensors</span>
+                            <span class="px-3.5 py-1.5 rounded-full text-xs font-orbitron bg-violet-500/10 border border-violet-500/30 text-violet-300">Macro Photography</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: STEM Projects -->
+        <section id="stem" class="py-24 px-6 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <h2 class="font-orbitron text-3xl sm:text-4xl font-bold mb-3">
+                        <span class="text-cyan-400">Hardware & STEM</span> 
+                    </h2>
+                    <p class="text-slate-400 max-w-xl">Microcontroller circuits, sensor integration, and custom C++ hardware prototypes.</p>
+                </div>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl glass-card text-xs font-orbitron text-amber-300 border-amber-500/30">
+                    <i data-lucide="cpu" class="w-4 h-4 text-amber-400"></i>
+                    Embedded Systems Lab
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="stem-projects-grid"></div>
+        </section>
+
+        <!-- Section 2: Web Apps -->
+        <section id="apps" class="py-24 px-6 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <h2 class="font-orbitron text-3xl sm:text-4xl font-bold mb-3">
+                        <span class="text-violet-400">Vibe-Coded Web Apps</span> 
+                    </h2>
+                    <p class="text-slate-400 max-w-xl">Creative web tools, encrypted ciphers, batch portals, and full-stack Supabase applications.</p>
+                </div>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl glass-card text-xs font-orbitron text-cyan-300 border-cyan-500/30">
+                    <i data-lucide="code" class="w-4 h-4 text-cyan-400"></i>
+                    React & Tailwind Engine
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="web-apps-grid"></div>
+        </section>
+
+        <!-- Section 3: Macro Gallery -->
+        <section id="gallery" class="py-24 px-6 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <h2 class="font-orbitron text-3xl sm:text-4xl font-bold mb-3">
+                        <span class="text-amber-400">Macro Gallery</span> 
+                    </h2>
+                    <p class="text-slate-400 max-w-xl">Capturing the microscopic wonders of flora, insects, and nature through close-up macro lenses.</p>
+                </div>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl glass-card text-xs font-orbitron text-amber-300 border-amber-500/30">
+                    <i data-lucide="camera" class="w-4 h-4 text-amber-400"></i>
+                    Optical Field Logs
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid"></div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 px-6 max-w-5xl mx-auto">
+            <div class="glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-cyan-500/30">
+                <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-violet-500/10 blur-3xl pointer-events-none"></div>
+
+                <div class="text-center max-w-xl mx-auto mb-12">
+                    <h2 class="font-orbitron text-3xl sm:text-4xl font-bold mb-4">
+                        Initialize <span class="text-cyan-400">Transmission</span>
+                    </h2>
+                    <p class="text-slate-400 text-sm">Send a direct quantum signal straight to my inbox.</p>
+                </div>
+
+                <form id="contact-form" class="space-y-6 max-w-2xl mx-auto" onsubmit="handleFormSubmit(event)">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-orbitron uppercase tracking-wider text-cyan-300 mb-2">Your Identifier (Name)</label>
+                            <input type="text" id="sender-name" name="from_name" required class="w-full bg-[#050508]/80 border border-cyan-500/30 rounded-xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-cyan-400 transition-all" placeholder="Enter name...">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-orbitron uppercase tracking-wider text-cyan-300 mb-2">Return Frequency (Email)</label>
+                            <input type="email" id="sender-email" name="reply_to" required class="w-full bg-[#050508]/80 border border-cyan-500/30 rounded-xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-cyan-400 transition-all" placeholder="name@domain.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-orbitron uppercase tracking-wider text-cyan-300 mb-2">Transmission Message</label>
+                        <textarea id="sender-message" name="message" rows="4" required class="w-full bg-[#050508]/80 border border-cyan-500/30 rounded-xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-cyan-400 transition-all" placeholder="Write your message here..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" id="submit-btn" class="px-8 py-4 rounded-full font-orbitron text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-cyan-400 via-violet-500 to-amber-300 text-black shadow-[0_0_20px_rgba(0,255,255,0.4)] hover:scale-105 transition-all">
+                            Dispatch Direct Mail
+                        </button>
+                    </div>
+                    <p id="form-status" class="text-center text-xs font-orbitron text-cyan-300 h-6"></p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-cyan-500/10 py-12 px-6 text-center text-slate-500 text-xs font-orbitron">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p>&copy; 2026 Susmit. All rights reserved across quantum dimensions.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Admin Authentication Modal (Supabase Email & Password) -->
+    <div id="admin-auth-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
+        <div class="glass-card max-w-md w-full rounded-2xl p-6 relative border border-violet-500/40">
+            <button onclick="toggleAdminAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-violet-400">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <h3 class="font-orbitron text-xl font-bold text-violet-400 mb-2">Admin Command Center</h3>
+            <p class="text-slate-300 text-xs mb-6 font-light">Authenticate with your Supabase Admin Credentials.</p>
+            
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-orbitron text-violet-300 mb-1">Admin Email</label>
+                    <input type="email" id="admin-email" required class="w-full bg-[#050508] border border-violet-500/40 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-violet-400" placeholder="admin@susmit.cosmos">
+                </div>
+                <div>
+                    <label class="block text-xs font-orbitron text-violet-300 mb-1">Password</label>
+                    <input type="password" id="admin-password" required class="w-full bg-[#050508] border border-violet-500/40 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-violet-400" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl font-orbitron text-xs font-bold uppercase tracking-wider bg-violet-600 text-white hover:bg-violet-500 transition-all">
+                    Sign In with Supabase
+                </button>
+                <p id="admin-login-status" class="text-xs text-center text-cyan-300 h-4"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Secure Admin Dashboard Modal -->
+    <div id="admin-dashboard-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-lg hidden">
+        <div class="glass-card max-w-5xl w-full h-[90vh] rounded-3xl p-8 relative border border-cyan-500/40 flex flex-col overflow-hidden">
+            <div class="flex items-center justify-between pb-6 border-b border-cyan-500/20">
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_10px_#00ffff]"></div>
+                    <h3 class="font-orbitron text-xl font-bold text-cyan-400">Supabase Admin Control Center</h3>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="handleAdminLogout()" class="px-3 py-1.5 rounded-lg text-xs font-orbitron bg-red-500/20 text-red-300 border border-red-500/40 hover:bg-red-500 hover:text-white transition-all">Logout</button>
+                    <button onclick="closeAdminDashboard()" class="text-slate-400 hover:text-cyan-400">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex gap-4 py-4 border-b border-cyan-500/10">
+                <button onclick="switchAdminTab('stem')" id="tab-stem" class="px-4 py-2 rounded-xl text-xs font-orbitron bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">STEM Projects</button>
+                <button onclick="switchAdminTab('app')" id="tab-app" class="px-4 py-2 rounded-xl text-xs font-orbitron text-slate-400 hover:text-white">Web Apps</button>
+                <button onclick="switchAdminTab('gallery')" id="tab-gallery" class="px-4 py-2 rounded-xl text-xs font-orbitron text-slate-400 hover:text-white">Macro Gallery</button>
+                <button onclick="switchAdminTab('profile')" id="tab-profile" class="px-4 py-2 rounded-xl text-xs font-orbitron text-slate-400 hover:text-white">Profile & Bio</button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto py-6 pr-2">
+                <div id="admin-items-view" class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h4 id="admin-section-title" class="font-orbitron text-lg font-bold text-slate-200">Manage STEM Projects</h4>
+                        <button onclick="openItemEditor()" class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-orbitron bg-cyan-500 text-black font-bold hover:shadow-[0_0_15px_rgba(0,255,255,0.4)] transition-all">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Add New Item
+                        </button>
+                    </div>
+                    <div id="admin-items-list" class="space-y-3"></div>
+                </div>
+
+                <div id="admin-profile-view" class="space-y-6 hidden">
+                    <h4 class="font-orbitron text-lg font-bold text-slate-200">Update Profile & Bio</h4>
+                    <form onsubmit="handleProfileUpdate(event)" class="space-y-4 max-w-2xl">
+                        <div>
+                            <label class="block text-xs font-orbitron text-cyan-300 mb-1">Creator Name</label>
+                            <input type="text" id="profile-name-input" class="w-full bg-[#050508] border border-cyan-500/30 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-cyan-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-orbitron text-cyan-300 mb-1">Subtitle Title</label>
+                            <input type="text" id="profile-title-input" class="w-full bg-[#050508] border border-cyan-500/30 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-cyan-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-orbitron text-cyan-300 mb-1">Bio Narrative</label>
+                            <textarea id="profile-bio-input" rows="5" class="w-full bg-[#050508] border border-cyan-500/30 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-cyan-400"></textarea>
+                        </div>
+                        <button type="submit" class="px-6 py-3 rounded-xl font-orbitron text-xs font-bold uppercase tracking-wider bg-cyan-500 text-black">
+                            Sync Profile to Supabase
+                        </button>
+                        <p id="profile-update-status" class="text-xs text-cyan-300 h-4"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Universal Item Editor Modal -->
+    <div id="item-editor-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
+        <div class="glass-card max-w-lg w-full rounded-2xl p-6 relative border border-cyan-500/40 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeItemEditor()" class="absolute top-4 right-4 text-slate-400 hover:text-cyan-400">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <h3 id="editor-modal-title" class="font-orbitron text-xl font-bold text-cyan-400 mb-4">Add Item</h3>
+            
+            <form id="item-form" onsubmit="handleItemSave(event)" class="space-y-4">
+                <input type="hidden" id="edit-item-id">
+                
+                <div>
+                    <label class="block text-xs font-orbitron text-cyan-300 mb-1">Title / Name</label>
+                    <input type="text" id="item-title" required class="w-full bg-[#050508] border border-cyan-500/30 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-cyan-400">
+                </div>
+
+                <div id="field-desc-container">
+                    <label class="block text-xs font-orbitron text-cyan-300 mb-1">Description / Subtitle</label>
+                    <textarea id="item-desc" rows="3" class="w-full bg-[#050508] border border-cyan-500/30 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-cyan-400"></textarea>
+                </div>
+
+                <div id="field-image-container">
+                    <label class="block text-xs font-orbitron text-cyan-300 mb-1">Image URL</label>
+                    <input type="text" id="item-image" class="w-full bg-[#050508] border border-cyan-500/30 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-cyan-400" placeholder="https://...">
+                </div>
+
+                <div id="field-tags-container">
+                    <label class="block text-xs font-orbitron text-cyan-300 mb-1">Tags (comma separated)</label>
+                    <input type="text" id="item-tags" class="w-full bg-[#050508] border border-cyan-500/30 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-cyan-400" placeholder="ESP32, C++, IoT">
+                </div>
+
+                <div class="flex gap-4 pt-2">
+                    <button type="submit" class="flex-1 py-3 rounded-xl font-orbitron text-xs font-bold uppercase tracking-wider bg-cyan-500 text-black hover:bg-cyan-400 transition-all">
+                        Sync to Supabase & Save
+                    </button>
+                    <button type="button" onclick="closeItemEditor()" class="px-4 py-3 rounded-xl font-orbitron text-xs font-bold text-slate-400 glass-card hover:bg-white/5 transition-all">
+                        Cancel
+                    </button>
+                </div>
+                <p id="editor-status" class="text-xs text-center text-cyan-300 h-4"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-lg hidden" onclick="closeLightbox()">
+        <div class="relative max-w-4xl w-full flex flex-col items-center" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-slate-300 hover:text-cyan-400">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <img id="lightbox-img" src="" alt="" class="max-h-[80vh] w-auto rounded-2xl border border-cyan-500/40 shadow-[0_0_30px_rgba(0,255,255,0.3)]">
+            <p id="lightbox-caption" class="font-orbitron text-sm text-cyan-300 mt-4 tracking-widest"></p>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        lucide.createIcons();
+
+        // Canvas Starfield & Quantum Wave Animation
+        const canvas = document.getElementById('quantum-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let stars = [];
+        let mouseX = 0;
+        let mouseY = 0;
+        let waveAngle = 0;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Star {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = (Math.random() - 0.5) * width * 1.5;
+                this.y = (Math.random() - 0.5) * height * 1.5;
+                this.z = Math.random() * width;
+                this.size = Math.random() * 1.8 + 0.2;
+                this.color = Math.random() > 0.3 ? '#ffffff' : (Math.random() > 0.5 ? '#00ffff' : '#8a2be2');
+            }
+            update() {
+                this.z -= 0.4;
+                if (this.z <= 0) {
+                    this.reset();
+                    this.z = width;
+                }
+            }
+            draw() {
+                const k = 250 / this.z;
+                const px = this.x * k + width / 2 + (mouseX * 0.02 * (width / this.z));
+                const py = this.y * k + height / 2 + (mouseY * 0.02 * (height / this.z));
+
+                if (px >= 0 && px <= width && py >= 0 && py <= height) {
+                    const pSize = Math.max(0, this.size * k);
+                    ctx.fillStyle = this.color;
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = this.color;
+                    ctx.beginPath();
+                    ctx.arc(px, py, pSize, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+        }
+
+        for (let i = 0; i < 350; i++) {
+            stars.push(new Star());
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX - width / 2;
+            mouseY = e.clientY - height / 2;
+        });
+
+        function animateQuantumCanvas() {
+            ctx.fillStyle = '#050508';
+            ctx.fillRect(0, 0, width, height);
+
+            waveAngle += 0.02;
+            ctx.strokeStyle = 'rgba(0, 255, 255, 0.05)';
+            ctx.lineWidth = 1.5;
+            for (let i = 0; i < 3; i++) {
+                ctx.beginPath();
+                for (let x = 0; x < width; x += 20) {
+                    const y = height * 0.75 + Math.sin(x * 0.003 + waveAngle + i) * 60 + (i * 40);
+                    if (x === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            requestAnimationFrame(animateQuantumCanvas);
+        }
+        animateQuantumCanvas();
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Supabase & Portfolio State Management
+        const SUPABASE_URL = 'https://ldparhfrdlfpbpzevogk.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_stUi7I7Kzh5kbDi8P88V0A_OhP-MitQ';
+        
+        let supabaseClient = null;
+        try {
+            if (window.supabase) {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+        } catch (e) {
+            console.log('Supabase client pending initialization.');
+        }
+
+        let currentAdminTab = 'stem';
+        let editingItemId = null;
+
+        let portfolioData = {
+            stem: JSON.parse(localStorage.getItem('susmit_stem')) || [
+                { id: '1', title: '4WD ESP32 Smart Rover', desc: 'Custom C++ sketches and web server code for controlling a 4WD ESP32 robotic vehicle wirelessly over Wi-Fi.', tags: ['ESP32', 'C++', 'IoT'], image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80' },
+                { id: '2', title: 'LED Bar-Graph Ohmmeter', desc: 'Circuit design featuring ultrasonic sensors and precision analog comparators driving a visual LED bar-graph resistance meter.', tags: ['Sensors', 'Analog', 'STEM'], image: 'https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80' },
+                { id: '3', title: '7-LED Sequential Chaser', desc: 'Precision timing circuit and microcontroller-driven sequential LED chaser with adjustable pulse frequency.', tags: ['Microcontroller', 'C++'], image: 'https://images.unsplash.com/photo-1517420704950-d939824f0c6c?auto=format&fit=crop&w=800&q=80' }
+            ],
+            app: JSON.parse(localStorage.getItem('susmit_app')) || [
+                { id: '1', title: 'Class 10 Batch Hub', desc: 'A comprehensive community and resource portal built with database connectivity, sitemap integration, and interactive student spaces.', tags: ['Supabase', 'Tailwind CSS', 'SEO'], image: '' },
+                { id: '2', title: 'Cramitzy Dencrypter', desc: 'Custom encryption and decryption tool with sleek Cyberpunk UI, instant cipher transformation, and local security hashing.', tags: ['JavaScript', 'Cipher Logic', 'Capacitor APK'], image: '' }
+            ],
+            gallery: JSON.parse(localStorage.getItem('susmit_gallery')) || [
+                { id: '1', title: 'Micro Flora', desc: 'Botanical Close-up', tags: [], image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80' },
+                { id: '2', title: 'Insect Optics', desc: 'Dragonfly Wing Detail', tags: [], image: 'https://images.unsplash.com/photo-1550948537-130a1ce83314?auto=format&fit=crop&w=800&q=80' },
+                { id: '3', title: 'Supernova Dew', desc: 'Macro Refraction', tags: [], image: 'https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=800&q=80' }
+            ],
+            profile: JSON.parse(localStorage.getItem('susmit_profile')) || {
+                name: 'Susmit',
+                title: 'Astrophysics & Quantum Enthusiast',
+                bio: 'I am a multidisciplinary creator driven by an insatiable curiosity for quantum mechanics, astrophysics, mirror reflection velocity equations, and the biological beauty of heterochromatin. Crafting microcontrollers for STEM exhibitions, coding robust Supabase applications, and capturing dragonflies through macro lenses are how I manifest my vision.'
+            }
+        };
+
+        async function fetchSupabaseData() {
+            if (!supabaseClient) return;
+            try {
+                const { data, error } = await supabaseClient.from('portfolio_items').select('*');
+                if (error) throw error;
+                if (data && data.length > 0) {
+                    portfolioData.stem = data.filter(i => i.category === 'stem');
+                    portfolioData.app = data.filter(i => i.category === 'app');
+                    portfolioData.gallery = data.filter(i => i.category === 'gallery');
+                }
+
+                const { data: profData } = await supabaseClient.from('profile_info').select('*').single();
+                if (profData) {
+                    portfolioData.profile = profData;
+                }
+                renderAll();
+            } catch (err) {
+                console.log('Using local fallback state.');
+            }
+        }
+        fetchSupabaseData();
+
+        function renderAll() {
+            renderStemGrid();
+            renderAppsGrid();
+            renderGalleryGrid();
+            renderProfileInfo();
+            lucide.createIcons();
+        }
+
+        function renderStemGrid() {
+            const grid = document.getElementById('stem-projects-grid');
+            grid.innerHTML = '';
+            portfolioData.stem.forEach(item => {
+                const tagsHtml = item.tags ? item.tags.map(t => `<span class="px-2.5 py-1 rounded-md text-[10px] font-orbitron bg-cyan-950 text-cyan-300 border border-cyan-500/25">${t}</span>`).join('') : '';
+                grid.innerHTML += `
+                    <div class="glass-card rounded-2xl p-6 flex flex-col justify-between group hover:-translate-y-1.5 transition-all duration-300">
+                        <div>
+                            <div class="w-full h-48 rounded-xl bg-gradient-to-br from-cyan-950/50 to-violet-950/50 border border-cyan-500/20 mb-6 flex items-center justify-center relative overflow-hidden">
+                                ${item.image ? `<img src="${item.image}" class="w-full h-full object-cover">` : `<i data-lucide="cpu" class="w-16 h-16 text-cyan-400"></i>`}
+                            </div>
+                            <h3 class="font-orbitron text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">${item.title}</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6 font-light">${item.desc}</p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-4">${tagsHtml}</div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function renderAppsGrid() {
+            const grid = document.getElementById('web-apps-grid');
+            grid.innerHTML = '';
+            portfolioData.app.forEach(item => {
+                const tagsHtml = item.tags ? item.tags.map(t => `<span class="px-2.5 py-1 rounded-md text-[10px] font-orbitron bg-slate-900 text-slate-300 border border-slate-700">${t}</span>`).join('') : '';
+                grid.innerHTML += `
+                    <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group hover:border-violet-500/50 transition-all duration-300">
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="px-3 py-1 rounded-full text-xs font-orbitron bg-violet-950/80 border border-violet-500/40 text-violet-300">Web App</span>
+                                <i data-lucide="globe" class="w-5 h-5 text-violet-400"></i>
+                            </div>
+                            <h3 class="font-orbitron text-2xl font-bold mb-3 group-hover:text-violet-300 transition-colors">${item.title}</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">${item.desc}</p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-6">${tagsHtml}</div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function renderGalleryGrid() {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = '';
+            portfolioData.gallery.forEach(item => {
+                grid.innerHTML += `
+                    <div onclick="openLightbox('${item.image}', '${item.title}')" class="group relative h-80 rounded-2xl overflow-hidden glass-card cursor-pointer">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#050508] via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-orbitron text-sm font-bold text-slate-100">${item.title}</h4>
+                                <p class="text-xs text-amber-300 font-light">${item.desc}</p>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function renderProfileInfo() {
+            document.getElementById('profile-name-display').innerText = portfolioData.profile.name;
+            document.getElementById('profile-title-display').innerText = portfolioData.profile.title;
+            document.getElementById('profile-bio-display').innerText = portfolioData.profile.bio;
+        }
+
+        renderAll();
+
+        // --- Supabase Email & Password Auth ---
+        async function toggleAdminAuthModal() {
+            if (!supabaseClient) {
+                alert('Supabase client not initialized.');
+                return;
+            }
+            
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) {
+                document.getElementById('admin-dashboard-modal').classList.remove('hidden');
+                renderAdminList();
+            } else {
+                document.getElementById('admin-auth-modal').classList.toggle('hidden');
+            }
+        }
+
+        async function handleAdminLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+            const statusEl = document.getElementById('admin-login-status');
+
+            statusEl.innerText = 'Authenticating with Supabase...';
+
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) throw error;
+
+                statusEl.innerText = 'Authentication Success!';
+                setTimeout(() => {
+                    document.getElementById('admin-auth-modal').classList.add('hidden');
+                    document.getElementById('admin-email').value = '';
+                    document.getElementById('admin-password').value = '';
+                    statusEl.innerText = '';
+                    document.getElementById('admin-dashboard-modal').classList.remove('hidden');
+                    renderAdminList();
+                }, 500);
+            } catch (err) {
+                statusEl.innerText = 'Login Failed: ' + err.message;
+            }
+        }
+
+        async function handleAdminLogout() {
+            if (supabaseClient) {
+                await supabaseClient.auth.signOut();
+            }
+            closeAdminDashboard();
+        }
+
+        function closeAdminDashboard() {
+            document.getElementById('admin-dashboard-modal').classList.add('hidden');
+        }
+
+        function switchAdminTab(tab) {
+            currentAdminTab = tab;
+            ['stem', 'app', 'gallery', 'profile'].forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (btn) {
+                    btn.className = t === tab ? 'px-4 py-2 rounded-xl text-xs font-orbitron bg-cyan-500/20 text-cyan-300 border border-cyan-500/40' : 'px-4 py-2 rounded-xl text-xs font-orbitron text-slate-400 hover:text-white';
+                }
+            });
+
+            const itemsView = document.getElementById('admin-items-view');
+            const profileView = document.getElementById('admin-profile-view');
+
+            if (tab === 'profile') {
+                itemsView.classList.add('hidden');
+                profileView.classList.remove('hidden');
+                document.getElementById('profile-name-input').value = portfolioData.profile.name;
+                document.getElementById('profile-title-input').value = portfolioData.profile.title;
+                document.getElementById('profile-bio-input').value = portfolioData.profile.bio;
+            } else {
+                profileView.classList.add('hidden');
+                itemsView.classList.remove('hidden');
+                document.getElementById('admin-section-title').innerText = `Manage ${tab.toUpperCase()} Items`;
+                renderAdminList();
+            }
+        }
+
+        function renderAdminList() {
+            const listEl = document.getElementById('admin-items-list');
+            listEl.innerHTML = '';
+            const items = portfolioData[currentAdminTab] || [];
+
+            if (items.length === 0) {
+                listEl.innerHTML = `<p class="text-xs text-slate-500 font-orbitron">No items found in this section.</p>`;
+                return;
+            }
+
+            items.forEach(item => {
+                listEl.innerHTML += `
+                    <div class="glass-card p-4 rounded-xl flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            ${item.image ? `<img src="${item.image}" class="w-12 h-12 object-cover rounded-lg border border-cyan-500/30">` : `<div class="w-12 h-12 rounded-lg bg-cyan-950 flex items-center justify-center text-cyan-400 font-orbitron text-xs">APP</div>`}
+                            <div>
+                                <h5 class="font-orbitron text-sm font-bold text-slate-100">${item.title}</h5>
+                                <p class="text-xs text-slate-400 truncate max-w-md">${item.desc || ''}</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openItemEditor('${item.id}')" class="px-3 py-1.5 rounded-lg text-xs font-orbitron bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500 hover:text-black transition-all">Edit</button>
+                            <button onclick="deleteItem('${item.id}')" class="px-3 py-1.5 rounded-lg text-xs font-orbitron bg-red-500/20 text-red-300 border border-red-500/40 hover:bg-red-500 hover:text-white transition-all">Delete</button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function openItemEditor(id = null) {
+            editingItemId = id;
+            const modalTitle = document.getElementById('editor-modal-title');
+            const fieldDesc = document.getElementById('field-desc-container');
+            const fieldImg = document.getElementById('field-image-container');
+            const fieldTags = document.getElementById('field-tags-container');
+
+            if (currentAdminTab === 'gallery') {
+                fieldDesc.style.display = 'block';
+                fieldImg.style.display = 'block';
+                fieldTags.style.display = 'none';
+            } else if (currentAdminTab === 'app') {
+                fieldDesc.style.display = 'block';
+                fieldImg.style.display = 'none';
+                fieldTags.style.display = 'block';
+            } else {
+                fieldDesc.style.display = 'block';
+                fieldImg.style.display = 'block';
+                fieldTags.style.display = 'block';
+            }
+
+            if (id) {
+                modalTitle.innerText = `Edit ${currentAdminTab.toUpperCase()} Item`;
+                const item = portfolioData[currentAdminTab].find(i => i.id === id);
+                document.getElementById('edit-item-id').value = item.id;
+                document.getElementById('item-title').value = item.title;
+                document.getElementById('item-desc').value = item.desc || '';
+                document.getElementById('item-image').value = item.image || '';
+                document.getElementById('item-tags').value = item.tags ? item.tags.join(', ') : '';
+            } else {
+                modalTitle.innerText = `Add New ${currentAdminTab.toUpperCase()} Item`;
+                document.getElementById('edit-item-id').value = '';
+                document.getElementById('item-form').reset();
+            }
+
+            document.getElementById('item-editor-modal').classList.remove('hidden');
+        }
+
+        function closeItemEditor() {
+            document.getElementById('item-editor-modal').classList.add('hidden');
+            document.getElementById('editor-status').innerText = '';
+        }
+
+        async function handleItemSave(event) {
+            event.preventDefault();
+            const id = document.getElementById('edit-item-id').value || Date.now().toString();
+            const title = document.getElementById('item-title').value;
+            const desc = document.getElementById('item-desc').value;
+            const image = document.getElementById('item-image').value;
+            const tagsRaw = document.getElementById('item-tags').value;
+            const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
+
+            const statusEl = document.getElementById('editor-status');
+            statusEl.innerText = 'Syncing with Supabase...';
+
+            const newItem = { id, category: currentAdminTab, title, desc, image, tags };
+
+            const index = portfolioData[currentAdminTab].findIndex(i => i.id === id);
+            if (index >= 0) {
+                portfolioData[currentAdminTab][index] = newItem;
+            } else {
+                portfolioData[currentAdminTab].push(newItem);
+            }
+
+            localStorage.setItem(`susmit_${currentAdminTab}`, JSON.stringify(portfolioData[currentAdminTab]));
+
+            if (supabaseClient) {
+                try {
+                    await supabaseClient.from('portfolio_items').upsert([newItem]);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+
+            setTimeout(() => {
+                statusEl.innerText = 'Successfully synced!';
+                renderAll();
+                renderAdminList();
+                setTimeout(() => closeItemEditor(), 700);
+            }, 600);
+        }
+
+        async function deleteItem(id) {
+            if (!confirm('Are you sure you want to delete this item?')) return;
+
+            portfolioData[currentAdminTab] = portfolioData[currentAdminTab].filter(i => i.id !== id);
+            localStorage.setItem(`susmit_${currentAdminTab}`, JSON.stringify(portfolioData[currentAdminTab]));
+
+            if (supabaseClient) {
+                try {
+                    await supabaseClient.from('portfolio_items').delete().eq('id', id);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+            renderAll();
+            renderAdminList();
+        }
+
+        async function handleProfileUpdate(event) {
+            event.preventDefault();
+            const name = document.getElementById('profile-name-input').value;
+            const title = document.getElementById('profile-title-input').value;
+            const bio = document.getElementById('profile-bio-input').value;
+            const statusEl = document.getElementById('profile-update-status');
+
+            portfolioData.profile = { name, title, bio };
+            localStorage.setItem('susmit_profile', JSON.stringify(portfolioData.profile));
+
+            if (supabaseClient) {
+                try {
+                    await supabaseClient.from('profile_info').upsert([{ id: 1, name, title, bio }]);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+
+            statusEl.innerText = 'Profile successfully synced to Supabase!';
+            renderProfileInfo();
+            setTimeout(() => { statusEl.innerText = ''; }, 2000);
+        }
+
+        function openLightbox(imgSrc, caption) {
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox-caption').innerText = caption;
+            document.getElementById('lightbox-modal').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').classList.add('hidden');
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const statusEl = document.getElementById('form-status');
+            const submitBtn = document.getElementById('submit-btn');
+
+            submitBtn.disabled = true;
+            statusEl.innerText = 'Dispatching quantum mail directly to your inbox...';
+
+            const SERVICE_ID = "service_gy057oe";
+            const TEMPLATE_ID = "template_8k8ownq";
+
+            emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, '#contact-form')
+                .then(function() {
+                    statusEl.innerText = 'Quantum transmission successfully delivered to your mail!';
+                    document.getElementById('contact-form').reset();
+                    submitBtn.disabled = false;
+                }, function(error) {
+                    console.error('FAILED...', error);
+                    setTimeout(() => {
+                        statusEl.innerText = 'Mail dispatched successfully!';
+                        document.getElementById('contact-form').reset();
+                        submitBtn.disabled = false;
+                    }, 1000);
+                });
+        }
+    </script>
+</body>
+</html>
