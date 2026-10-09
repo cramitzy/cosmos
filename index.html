@@ -8,7 +8,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
-    <!-- Google Fonts: Space Grotesk, Orbitron, Great Vibes -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Orbitron:wght@400;600;800&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -78,7 +78,6 @@
 </head>
 <body class="bg-[#050508] text-slate-100 selection:bg-cyan-500 selection:text-black">
 
-    <!-- Interactive Canvas Starfield & Quantum Waves -->
     <canvas id="quantum-canvas"></canvas>
 
     <!-- Navigation Header -->
@@ -96,14 +95,16 @@
                 <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
             </nav>
 
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
+                <button onclick="toggleAdminAuthModal()" title="Command Center" class="p-2 rounded-xl glass-card text-cyan-400 hover:text-white hover:border-cyan-400 transition-all">
+                    <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                </button>
                 <button id="mobile-menu-btn" class="md:hidden p-2 text-cyan-400 focus:outline-none">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Menu Overlay -->
         <div id="mobile-menu" class="hidden md:hidden glass-card border-t border-cyan-500/20 px-6 py-4 flex flex-col gap-4">
             <a href="#about" class="mobile-link hover:text-cyan-400 py-1">Know Me</a>
             <a href="#stem" class="mobile-link hover:text-cyan-400 py-1">STEM & Hardware</a>
@@ -114,7 +115,6 @@
     </header>
 
     <div class="content-layer">
-
         <!-- Hero Section -->
         <section id="hero" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20 relative">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#050508]/60 to-[#050508] pointer-events-none"></div>
@@ -198,7 +198,7 @@
                     <div class="glass-card p-6 rounded-2xl">
                         <h4 class="font-orbitron text-sm font-semibold tracking-wider text-cyan-400 mb-4 uppercase">Capabilities</h4>
                         <div class="flex flex-wrap gap-2.5">
-                            <span class="px-3.5 py-1.5 rounded-full text-xs font-orbitron bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">Astrophysics & Quantum Mechanics enthusiast</span>
+                            <span class="px-3.5 py-1.5 rounded-full text-xs font-orbitron bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">Astrophysics & Quantum Mechanics</span>
                             <span class="px-3.5 py-1.5 rounded-full text-xs font-orbitron bg-violet-500/10 border border-violet-500/30 text-violet-300">C++ & Microcontrollers</span>
                             <span class="px-3.5 py-1.5 rounded-full text-xs font-orbitron bg-amber-500/10 border border-amber-500/30 text-amber-300">ESP32 & Sensors</span>
                             <span class="px-3.5 py-1.5 rounded-full text-xs font-orbitron bg-violet-500/10 border border-violet-500/30 text-violet-300">Macro Photography</span>
@@ -208,7 +208,7 @@
             </div>
         </section>
 
-        <!-- Section 1: STEM Projects -->
+        <!-- STEM Projects -->
         <section id="stem" class="py-24 px-6 max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                 <div>
@@ -222,11 +222,10 @@
                     Embedded Systems Lab
                 </div>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="stem-projects-grid"></div>
         </section>
 
-        <!-- Section 2: Web Apps -->
+        <!-- Web Apps -->
         <section id="apps" class="py-24 px-6 max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                 <div>
@@ -237,14 +236,13 @@
                 </div>
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl glass-card text-xs font-orbitron text-cyan-300 border-cyan-500/30">
                     <i data-lucide="code" class="w-4 h-4 text-cyan-400"></i>
-                    React & Tailwind Engine
+                    Modern Full-Stack
                 </div>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="web-apps-grid"></div>
         </section>
 
-        <!-- Section 3: Macro Gallery -->
+        <!-- Macro Gallery -->
         <section id="gallery" class="py-24 px-6 max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                 <div>
@@ -258,7 +256,6 @@
                     Optical Field Logs
                 </div>
             </div>
-
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid"></div>
         </section>
 
@@ -304,38 +301,38 @@
         <footer class="border-t border-cyan-500/10 py-12 px-6 text-center text-slate-500 text-xs font-orbitron">
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p>&copy; 2026 Susmit. All rights reserved across quantum dimensions.</p>
+                <button onclick="toggleAdminAuthModal()" class="text-slate-600 hover:text-cyan-400 transition-colors">Admin Gateway</button>
             </div>
         </footer>
-
     </div>
 
-    <!-- Admin Authentication Modal (Supabase Email & Password) -->
+    <!-- Admin Authentication Modal -->
     <div id="admin-auth-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
         <div class="glass-card max-w-md w-full rounded-2xl p-6 relative border border-violet-500/40">
             <button onclick="toggleAdminAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-violet-400">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
             <h3 class="font-orbitron text-xl font-bold text-violet-400 mb-2">Admin Command Center</h3>
-            <p class="text-slate-300 text-xs mb-6 font-light">Authenticate with your Supabase Admin Credentials.</p>
+            <p class="text-slate-300 text-xs mb-6 font-light">Authenticate with Supabase Admin Credentials.</p>
             
             <form onsubmit="handleAdminLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-orbitron text-violet-300 mb-1">Admin Email</label>
-                    <input type="email" id="admin-email" required class="w-full bg-[#050508] border border-violet-500/40 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-violet-400" placeholder="admin@susmit.cosmos">
+                    <input type="email" id="admin-email" required class="w-full bg-[#050508] border border-violet-500/40 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-violet-400" placeholder="admin@domain.com">
                 </div>
                 <div>
                     <label class="block text-xs font-orbitron text-violet-300 mb-1">Password</label>
                     <input type="password" id="admin-password" required class="w-full bg-[#050508] border border-violet-500/40 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-violet-400" placeholder="••••••••">
                 </div>
-                <button type="submit" class="w-full py-3 rounded-xl font-orbitron text-xs font-bold uppercase tracking-wider bg-violet-600 text-white hover:bg-violet-500 transition-all">
+                <button type="submit" id="admin-login-btn" class="w-full py-3 rounded-xl font-orbitron text-xs font-bold uppercase tracking-wider bg-violet-600 text-white hover:bg-violet-500 transition-all">
                     Sign In with Supabase
                 </button>
-                <p id="admin-login-status" class="text-xs text-center text-cyan-300 h-4"></p>
+                <p id="admin-login-status" class="text-xs text-center text-cyan-300 min-h-4"></p>
             </form>
         </div>
     </div>
 
-    <!-- Secure Admin Dashboard Modal -->
+    <!-- Admin Dashboard Modal -->
     <div id="admin-dashboard-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-lg hidden">
         <div class="glass-card max-w-5xl w-full h-[90vh] rounded-3xl p-8 relative border border-cyan-500/40 flex flex-col overflow-hidden">
             <div class="flex items-center justify-between pb-6 border-b border-cyan-500/20">
@@ -384,17 +381,17 @@
                             <label class="block text-xs font-orbitron text-cyan-300 mb-1">Bio Narrative</label>
                             <textarea id="profile-bio-input" rows="5" class="w-full bg-[#050508] border border-cyan-500/30 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-cyan-400"></textarea>
                         </div>
-                        <button type="submit" class="px-6 py-3 rounded-xl font-orbitron text-xs font-bold uppercase tracking-wider bg-cyan-500 text-black">
+                        <button type="submit" id="profile-submit-btn" class="px-6 py-3 rounded-xl font-orbitron text-xs font-bold uppercase tracking-wider bg-cyan-500 text-black hover:bg-cyan-400 transition-all">
                             Sync Profile to Supabase
                         </button>
-                        <p id="profile-update-status" class="text-xs text-cyan-300 h-4"></p>
+                        <p id="profile-update-status" class="text-xs text-cyan-300 min-h-4"></p>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Universal Item Editor Modal -->
+    <!-- Item Editor Modal -->
     <div id="item-editor-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
         <div class="glass-card max-w-lg w-full rounded-2xl p-6 relative border border-cyan-500/40 max-h-[90vh] overflow-y-auto">
             <button onclick="closeItemEditor()" class="absolute top-4 right-4 text-slate-400 hover:text-cyan-400">
@@ -426,14 +423,14 @@
                 </div>
 
                 <div class="flex gap-4 pt-2">
-                    <button type="submit" class="flex-1 py-3 rounded-xl font-orbitron text-xs font-bold uppercase tracking-wider bg-cyan-500 text-black hover:bg-cyan-400 transition-all">
+                    <button type="submit" id="item-save-btn" class="flex-1 py-3 rounded-xl font-orbitron text-xs font-bold uppercase tracking-wider bg-cyan-500 text-black hover:bg-cyan-400 transition-all">
                         Sync to Supabase & Save
                     </button>
                     <button type="button" onclick="closeItemEditor()" class="px-4 py-3 rounded-xl font-orbitron text-xs font-bold text-slate-400 glass-card hover:bg-white/5 transition-all">
                         Cancel
                     </button>
                 </div>
-                <p id="editor-status" class="text-xs text-center text-cyan-300 h-4"></p>
+                <p id="editor-status" class="text-xs text-center text-cyan-300 min-h-4"></p>
             </form>
         </div>
     </div>
@@ -449,32 +446,24 @@
         </div>
     </div>
 
-    <!-- JavaScript Application Logic -->
     <script>
         lucide.createIcons();
 
         // Canvas Starfield & Quantum Wave Animation
         const canvas = document.getElementById('quantum-canvas');
         const ctx = canvas.getContext('2d');
-
-        let width, height;
-        let stars = [];
-        let mouseX = 0;
-        let mouseY = 0;
-        let waveAngle = 0;
+        let width, height, stars = [];
+        let mouseX = 0, mouseY = 0, waveAngle = 0;
 
         function resizeCanvas() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         }
-
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
         class Star {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = (Math.random() - 0.5) * width * 1.5;
                 this.y = (Math.random() - 0.5) * height * 1.5;
@@ -497,19 +486,14 @@
                 if (px >= 0 && px <= width && py >= 0 && py <= height) {
                     const pSize = Math.max(0, this.size * k);
                     ctx.fillStyle = this.color;
-                    ctx.shadowBlur = 8;
-                    ctx.shadowColor = this.color;
                     ctx.beginPath();
                     ctx.arc(px, py, pSize, 0, Math.PI * 2);
                     ctx.fill();
-                    ctx.shadowBlur = 0;
                 }
             }
         }
 
-        for (let i = 0; i < 350; i++) {
-            stars.push(new Star());
-        }
+        for (let i = 0; i < 280; i++) stars.push(new Star());
 
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX - width / 2;
@@ -521,12 +505,12 @@
             ctx.fillRect(0, 0, width, height);
 
             waveAngle += 0.02;
-            ctx.strokeStyle = 'rgba(0, 255, 255, 0.05)';
+            ctx.strokeStyle = 'rgba(0, 255, 255, 0.04)';
             ctx.lineWidth = 1.5;
             for (let i = 0; i < 3; i++) {
                 ctx.beginPath();
-                for (let x = 0; x < width; x += 20) {
-                    const y = height * 0.75 + Math.sin(x * 0.003 + waveAngle + i) * 60 + (i * 40);
+                for (let x = 0; x < width; x += 30) {
+                    const y = height * 0.75 + Math.sin(x * 0.003 + waveAngle + i) * 50 + (i * 30);
                     if (x === 0) ctx.moveTo(x, y);
                     else ctx.lineTo(x, y);
                 }
@@ -542,79 +526,90 @@
         }
         animateQuantumCanvas();
 
+        // Mobile Menu
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+        mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('hidden')));
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Supabase & Portfolio State Management
+        // Supabase Client Setup
         const SUPABASE_URL = 'https://ldparhfrdlfpbpzevogk.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_stUi7I7Kzh5kbDi8P88V0A_OhP-MitQ';
         
         let supabaseClient = null;
-        try {
-            if (window.supabase) {
-                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            }
-        } catch (e) {
-            console.log('Supabase client pending initialization.');
+        if (window.supabase) {
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         }
 
         let currentAdminTab = 'stem';
         let editingItemId = null;
 
-        let portfolioData = {
-            stem: JSON.parse(localStorage.getItem('susmit_stem')) || [
+        // Default Datastore
+        const defaultPortfolio = {
+            stem: [
                 { id: '1', title: '4WD ESP32 Smart Rover', desc: 'Custom C++ sketches and web server code for controlling a 4WD ESP32 robotic vehicle wirelessly over Wi-Fi.', tags: ['ESP32', 'C++', 'IoT'], image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80' },
                 { id: '2', title: 'LED Bar-Graph Ohmmeter', desc: 'Circuit design featuring ultrasonic sensors and precision analog comparators driving a visual LED bar-graph resistance meter.', tags: ['Sensors', 'Analog', 'STEM'], image: 'https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80' },
                 { id: '3', title: '7-LED Sequential Chaser', desc: 'Precision timing circuit and microcontroller-driven sequential LED chaser with adjustable pulse frequency.', tags: ['Microcontroller', 'C++'], image: 'https://images.unsplash.com/photo-1517420704950-d939824f0c6c?auto=format&fit=crop&w=800&q=80' }
             ],
-            app: JSON.parse(localStorage.getItem('susmit_app')) || [
+            app: [
                 { id: '1', title: 'Class 10 Batch Hub', desc: 'A comprehensive community and resource portal built with database connectivity, sitemap integration, and interactive student spaces.', tags: ['Supabase', 'Tailwind CSS', 'SEO'], image: '' },
                 { id: '2', title: 'Cramitzy Dencrypter', desc: 'Custom encryption and decryption tool with sleek Cyberpunk UI, instant cipher transformation, and local security hashing.', tags: ['JavaScript', 'Cipher Logic', 'Capacitor APK'], image: '' }
             ],
-            gallery: JSON.parse(localStorage.getItem('susmit_gallery')) || [
+            gallery: [
                 { id: '1', title: 'Micro Flora', desc: 'Botanical Close-up', tags: [], image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80' },
                 { id: '2', title: 'Insect Optics', desc: 'Dragonfly Wing Detail', tags: [], image: 'https://images.unsplash.com/photo-1550948537-130a1ce83314?auto=format&fit=crop&w=800&q=80' },
                 { id: '3', title: 'Supernova Dew', desc: 'Macro Refraction', tags: [], image: 'https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=800&q=80' }
             ],
-            profile: JSON.parse(localStorage.getItem('susmit_profile')) || {
+            profile: {
                 name: 'Susmit',
                 title: 'Astrophysics & Quantum Enthusiast',
                 bio: 'I am a multidisciplinary creator driven by an insatiable curiosity for quantum mechanics, astrophysics, mirror reflection velocity equations, and the biological beauty of heterochromatin. Crafting microcontrollers for STEM exhibitions, coding robust Supabase applications, and capturing dragonflies through macro lenses are how I manifest my vision.'
             }
         };
 
+        let portfolioData = {
+            stem: JSON.parse(localStorage.getItem('susmit_stem')) || defaultPortfolio.stem,
+            app: JSON.parse(localStorage.getItem('susmit_app')) || defaultPortfolio.app,
+            gallery: JSON.parse(localStorage.getItem('susmit_gallery')) || defaultPortfolio.gallery,
+            profile: JSON.parse(localStorage.getItem('susmit_profile')) || defaultPortfolio.profile
+        };
+
+        // Utility: Sanitization
+        function sanitize(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Supabase Database Fetch
         async function fetchSupabaseData() {
             if (!supabaseClient) return;
             try {
-                const { data, error } = await supabaseClient.from('portfolio_items').select('*');
-                if (error) throw error;
-                if (data && data.length > 0) {
-                    portfolioData.stem = data.filter(i => i.category === 'stem');
-                    portfolioData.app = data.filter(i => i.category === 'app');
-                    portfolioData.gallery = data.filter(i => i.category === 'gallery');
+                const { data: items, error: itemsErr } = await supabaseClient.from('portfolio_items').select('*');
+                if (!itemsErr && items && items.length > 0) {
+                    portfolioData.stem = items.filter(i => i.category === 'stem');
+                    portfolioData.app = items.filter(i => i.category === 'app');
+                    portfolioData.gallery = items.filter(i => i.category === 'gallery');
+
+                    localStorage.setItem('susmit_stem', JSON.stringify(portfolioData.stem));
+                    localStorage.setItem('susmit_app', JSON.stringify(portfolioData.app));
+                    localStorage.setItem('susmit_gallery', JSON.stringify(portfolioData.gallery));
                 }
 
-                const { data: profData } = await supabaseClient.from('profile_info').select('*').single();
-                if (profData) {
-                    portfolioData.profile = profData;
+                const { data: prof, error: profErr } = await supabaseClient.from('profile_info').select('*').single();
+                if (!profErr && prof) {
+                    portfolioData.profile = { name: prof.name, title: prof.title, bio: prof.bio };
+                    localStorage.setItem('susmit_profile', JSON.stringify(portfolioData.profile));
                 }
-                renderAll();
             } catch (err) {
-                console.log('Using local fallback state.');
+                console.warn('Using local cached store:', err.message);
+            } finally {
+                renderAll();
             }
         }
-        fetchSupabaseData();
 
         function renderAll() {
             renderStemGrid();
@@ -626,63 +621,53 @@
 
         function renderStemGrid() {
             const grid = document.getElementById('stem-projects-grid');
-            grid.innerHTML = '';
-            portfolioData.stem.forEach(item => {
-                const tagsHtml = item.tags ? item.tags.map(t => `<span class="px-2.5 py-1 rounded-md text-[10px] font-orbitron bg-cyan-950 text-cyan-300 border border-cyan-500/25">${t}</span>`).join('') : '';
-                grid.innerHTML += `
-                    <div class="glass-card rounded-2xl p-6 flex flex-col justify-between group hover:-translate-y-1.5 transition-all duration-300">
-                        <div>
-                            <div class="w-full h-48 rounded-xl bg-gradient-to-br from-cyan-950/50 to-violet-950/50 border border-cyan-500/20 mb-6 flex items-center justify-center relative overflow-hidden">
-                                ${item.image ? `<img src="${item.image}" class="w-full h-full object-cover">` : `<i data-lucide="cpu" class="w-16 h-16 text-cyan-400"></i>`}
-                            </div>
-                            <h3 class="font-orbitron text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">${item.title}</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed mb-6 font-light">${item.desc}</p>
+            grid.innerHTML = portfolioData.stem.map(item => `
+                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between group hover:-translate-y-1.5 transition-all duration-300">
+                    <div>
+                        <div class="w-full h-48 rounded-xl bg-gradient-to-br from-cyan-950/50 to-violet-950/50 border border-cyan-500/20 mb-6 flex items-center justify-center relative overflow-hidden">
+                            ${item.image ? `<img src="${encodeURI(item.image)}" alt="${sanitize(item.title)}" class="w-full h-full object-cover">` : `<i data-lucide="cpu" class="w-16 h-16 text-cyan-400"></i>`}
                         </div>
-                        <div>
-                            <div class="flex flex-wrap gap-2 mb-4">${tagsHtml}</div>
-                        </div>
-                    </div>`;
-            });
+                        <h3 class="font-orbitron text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">${sanitize(item.title)}</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6 font-light">${sanitize(item.desc)}</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        ${(item.tags || []).map(t => `<span class="px-2.5 py-1 rounded-md text-[10px] font-orbitron bg-cyan-950 text-cyan-300 border border-cyan-500/25">${sanitize(t)}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
         }
 
         function renderAppsGrid() {
             const grid = document.getElementById('web-apps-grid');
-            grid.innerHTML = '';
-            portfolioData.app.forEach(item => {
-                const tagsHtml = item.tags ? item.tags.map(t => `<span class="px-2.5 py-1 rounded-md text-[10px] font-orbitron bg-slate-900 text-slate-300 border border-slate-700">${t}</span>`).join('') : '';
-                grid.innerHTML += `
-                    <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group hover:border-violet-500/50 transition-all duration-300">
-                        <div>
-                            <div class="flex items-center justify-between mb-6">
-                                <span class="px-3 py-1 rounded-full text-xs font-orbitron bg-violet-950/80 border border-violet-500/40 text-violet-300">Web App</span>
-                                <i data-lucide="globe" class="w-5 h-5 text-violet-400"></i>
-                            </div>
-                            <h3 class="font-orbitron text-2xl font-bold mb-3 group-hover:text-violet-300 transition-colors">${item.title}</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">${item.desc}</p>
+            grid.innerHTML = portfolioData.app.map(item => `
+                <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group hover:border-violet-500/50 transition-all duration-300">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full text-xs font-orbitron bg-violet-950/80 border border-violet-500/40 text-violet-300">Web App</span>
+                            <i data-lucide="globe" class="w-5 h-5 text-violet-400"></i>
                         </div>
-                        <div>
-                            <div class="flex flex-wrap gap-2 mb-6">${tagsHtml}</div>
-                        </div>
-                    </div>`;
-            });
+                        <h3 class="font-orbitron text-2xl font-bold mb-3 group-hover:text-violet-300 transition-colors">${sanitize(item.title)}</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">${sanitize(item.desc)}</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        ${(item.tags || []).map(t => `<span class="px-2.5 py-1 rounded-md text-[10px] font-orbitron bg-slate-900 text-slate-300 border border-slate-700">${sanitize(t)}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
         }
 
         function renderGalleryGrid() {
             const grid = document.getElementById('gallery-grid');
-            grid.innerHTML = '';
-            portfolioData.gallery.forEach(item => {
-                grid.innerHTML += `
-                    <div onclick="openLightbox('${item.image}', '${item.title}')" class="group relative h-80 rounded-2xl overflow-hidden glass-card cursor-pointer">
-                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#050508] via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
-                        <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                            <div>
-                                <h4 class="font-orbitron text-sm font-bold text-slate-100">${item.title}</h4>
-                                <p class="text-xs text-amber-300 font-light">${item.desc}</p>
-                            </div>
-                        </div>
-                    </div>`;
-            });
+            grid.innerHTML = portfolioData.gallery.map(item => `
+                <div onclick="openLightbox('${encodeURI(item.image)}', '${sanitize(item.title)}')" class="group relative h-80 rounded-2xl overflow-hidden glass-card cursor-pointer">
+                    <img src="${encodeURI(item.image)}" alt="${sanitize(item.title)}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#050508] via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <h4 class="font-orbitron text-sm font-bold text-slate-100">${sanitize(item.title)}</h4>
+                        <p class="text-xs text-amber-300 font-light">${sanitize(item.desc)}</p>
+                    </div>
+                </div>
+            `).join('');
         }
 
         function renderProfileInfo() {
@@ -691,12 +676,20 @@
             document.getElementById('profile-bio-display').innerText = portfolioData.profile.bio;
         }
 
-        renderAll();
+        // Supabase Auth Observers & Event Handlers
+        if (supabaseClient) {
+            supabaseClient.auth.onAuthStateChange((event, session) => {
+                if (session) {
+                    document.getElementById('admin-auth-modal').classList.add('hidden');
+                } else {
+                    document.getElementById('admin-dashboard-modal').classList.add('hidden');
+                }
+            });
+        }
 
-        // --- Supabase Email & Password Auth ---
         async function toggleAdminAuthModal() {
             if (!supabaseClient) {
-                alert('Supabase client not initialized.');
+                alert('Supabase client failed to initialize. Please check connection.');
                 return;
             }
             
@@ -707,35 +700,34 @@
             } else {
                 document.getElementById('admin-auth-modal').classList.toggle('hidden');
             }
+            lucide.createIcons();
         }
 
         async function handleAdminLogin(event) {
             event.preventDefault();
-            const email = document.getElementById('admin-email').value;
+            const email = document.getElementById('admin-email').value.trim();
             const password = document.getElementById('admin-password').value;
             const statusEl = document.getElementById('admin-login-status');
+            const submitBtn = document.getElementById('admin-login-btn');
 
             statusEl.innerText = 'Authenticating with Supabase...';
+            submitBtn.disabled = true;
 
             try {
-                const { data, error } = await supabaseClient.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
-
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
                 if (error) throw error;
 
                 statusEl.innerText = 'Authentication Success!';
-                setTimeout(() => {
-                    document.getElementById('admin-auth-modal').classList.add('hidden');
-                    document.getElementById('admin-email').value = '';
-                    document.getElementById('admin-password').value = '';
-                    statusEl.innerText = '';
-                    document.getElementById('admin-dashboard-modal').classList.remove('hidden');
-                    renderAdminList();
-                }, 500);
+                document.getElementById('admin-email').value = '';
+                document.getElementById('admin-password').value = '';
+                document.getElementById('admin-auth-modal').classList.add('hidden');
+                document.getElementById('admin-dashboard-modal').classList.remove('hidden');
+                renderAdminList();
             } catch (err) {
-                statusEl.innerText = 'Login Failed: ' + err.message;
+                statusEl.innerText = err.message || 'Login failed.';
+            } finally {
+                submitBtn.disabled = false;
+                lucide.createIcons();
             }
         }
 
@@ -774,11 +766,11 @@
                 document.getElementById('admin-section-title').innerText = `Manage ${tab.toUpperCase()} Items`;
                 renderAdminList();
             }
+            lucide.createIcons();
         }
 
         function renderAdminList() {
             const listEl = document.getElementById('admin-items-list');
-            listEl.innerHTML = '';
             const items = portfolioData[currentAdminTab] || [];
 
             if (items.length === 0) {
@@ -786,22 +778,22 @@
                 return;
             }
 
-            items.forEach(item => {
-                listEl.innerHTML += `
-                    <div class="glass-card p-4 rounded-xl flex items-center justify-between gap-4">
-                        <div class="flex items-center gap-4">
-                            ${item.image ? `<img src="${item.image}" class="w-12 h-12 object-cover rounded-lg border border-cyan-500/30">` : `<div class="w-12 h-12 rounded-lg bg-cyan-950 flex items-center justify-center text-cyan-400 font-orbitron text-xs">APP</div>`}
-                            <div>
-                                <h5 class="font-orbitron text-sm font-bold text-slate-100">${item.title}</h5>
-                                <p class="text-xs text-slate-400 truncate max-w-md">${item.desc || ''}</p>
-                            </div>
+            listEl.innerHTML = items.map(item => `
+                <div class="glass-card p-4 rounded-xl flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-4 overflow-hidden">
+                        ${item.image ? `<img src="${encodeURI(item.image)}" class="w-12 h-12 object-cover rounded-lg border border-cyan-500/30 flex-shrink-0">` : `<div class="w-12 h-12 rounded-lg bg-cyan-950 flex items-center justify-center text-cyan-400 font-orbitron text-xs flex-shrink-0">APP</div>`}
+                        <div class="truncate">
+                            <h5 class="font-orbitron text-sm font-bold text-slate-100 truncate">${sanitize(item.title)}</h5>
+                            <p class="text-xs text-slate-400 truncate max-w-sm">${sanitize(item.desc || '')}</p>
                         </div>
-                        <div class="flex gap-2">
-                            <button onclick="openItemEditor('${item.id}')" class="px-3 py-1.5 rounded-lg text-xs font-orbitron bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500 hover:text-black transition-all">Edit</button>
-                            <button onclick="deleteItem('${item.id}')" class="px-3 py-1.5 rounded-lg text-xs font-orbitron bg-red-500/20 text-red-300 border border-red-500/40 hover:bg-red-500 hover:text-white transition-all">Delete</button>
-                        </div>
-                    </div>`;
-            });
+                    </div>
+                    <div class="flex gap-2 flex-shrink-0">
+                        <button onclick="openItemEditor('${item.id}')" class="px-3 py-1.5 rounded-lg text-xs font-orbitron bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500 hover:text-black transition-all">Edit</button>
+                        <button onclick="deleteItem('${item.id}')" class="px-3 py-1.5 rounded-lg text-xs font-orbitron bg-red-500/20 text-red-300 border border-red-500/40 hover:bg-red-500 hover:text-white transition-all">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
         }
 
         function openItemEditor(id = null) {
@@ -811,28 +803,20 @@
             const fieldImg = document.getElementById('field-image-container');
             const fieldTags = document.getElementById('field-tags-container');
 
-            if (currentAdminTab === 'gallery') {
-                fieldDesc.style.display = 'block';
-                fieldImg.style.display = 'block';
-                fieldTags.style.display = 'none';
-            } else if (currentAdminTab === 'app') {
-                fieldDesc.style.display = 'block';
-                fieldImg.style.display = 'none';
-                fieldTags.style.display = 'block';
-            } else {
-                fieldDesc.style.display = 'block';
-                fieldImg.style.display = 'block';
-                fieldTags.style.display = 'block';
-            }
+            fieldDesc.style.display = 'block';
+            fieldImg.style.display = (currentAdminTab === 'app') ? 'none' : 'block';
+            fieldTags.style.display = (currentAdminTab === 'gallery') ? 'none' : 'block';
 
             if (id) {
                 modalTitle.innerText = `Edit ${currentAdminTab.toUpperCase()} Item`;
-                const item = portfolioData[currentAdminTab].find(i => i.id === id);
-                document.getElementById('edit-item-id').value = item.id;
-                document.getElementById('item-title').value = item.title;
-                document.getElementById('item-desc').value = item.desc || '';
-                document.getElementById('item-image').value = item.image || '';
-                document.getElementById('item-tags').value = item.tags ? item.tags.join(', ') : '';
+                const item = portfolioData[currentAdminTab].find(i => String(i.id) === String(id));
+                if (item) {
+                    document.getElementById('edit-item-id').value = item.id;
+                    document.getElementById('item-title').value = item.title;
+                    document.getElementById('item-desc').value = item.desc || '';
+                    document.getElementById('item-image').value = item.image || '';
+                    document.getElementById('item-tags').value = item.tags ? item.tags.join(', ') : '';
+                }
             } else {
                 modalTitle.innerText = `Add New ${currentAdminTab.toUpperCase()} Item`;
                 document.getElementById('edit-item-id').value = '';
@@ -849,118 +833,143 @@
 
         async function handleItemSave(event) {
             event.preventDefault();
-            const id = document.getElementById('edit-item-id').value || Date.now().toString();
-            const title = document.getElementById('item-title').value;
-            const desc = document.getElementById('item-desc').value;
-            const image = document.getElementById('item-image').value;
+            const existingId = document.getElementById('edit-item-id').value;
+            // Generate standard UUID or reuse existing
+            const id = existingId || (crypto.randomUUID ? crypto.randomUUID() : 'item_' + Date.now());
+            const title = document.getElementById('item-title').value.trim();
+            const desc = document.getElementById('item-desc').value.trim();
+            const image = document.getElementById('item-image').value.trim();
             const tagsRaw = document.getElementById('item-tags').value;
             const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
 
             const statusEl = document.getElementById('editor-status');
+            const saveBtn = document.getElementById('item-save-btn');
+
             statusEl.innerText = 'Syncing with Supabase...';
+            saveBtn.disabled = true;
 
-            const newItem = { id, category: currentAdminTab, title, desc, image, tags };
+            const payload = { id, category: currentAdminTab, title, desc, image, tags };
 
-            const index = portfolioData[currentAdminTab].findIndex(i => i.id === id);
-            if (index >= 0) {
-                portfolioData[currentAdminTab][index] = newItem;
-            } else {
-                portfolioData[currentAdminTab].push(newItem);
-            }
-
-            localStorage.setItem(`susmit_${currentAdminTab}`, JSON.stringify(portfolioData[currentAdminTab]));
-
+            // Upsert in Supabase
             if (supabaseClient) {
                 try {
-                    await supabaseClient.from('portfolio_items').upsert([newItem]);
+                    const { error } = await supabaseClient.from('portfolio_items').upsert([payload]);
+                    if (error) throw error;
                 } catch (err) {
-                    console.error(err);
+                    console.error('Supabase write error:', err);
+                    statusEl.innerText = 'Supabase Sync Notice: ' + err.message;
                 }
             }
 
+            // Sync Local Storage
+            const index = portfolioData[currentAdminTab].findIndex(i => String(i.id) === String(id));
+            if (index >= 0) {
+                portfolioData[currentAdminTab][index] = payload;
+            } else {
+                portfolioData[currentAdminTab].push(payload);
+            }
+            localStorage.setItem(`susmit_${currentAdminTab}`, JSON.stringify(portfolioData[currentAdminTab]));
+
+            statusEl.innerText = 'Successfully synced!';
+            renderAll();
+            renderAdminList();
             setTimeout(() => {
-                statusEl.innerText = 'Successfully synced!';
-                renderAll();
-                renderAdminList();
-                setTimeout(() => closeItemEditor(), 700);
+                closeItemEditor();
+                saveBtn.disabled = false;
             }, 600);
         }
 
         async function deleteItem(id) {
             if (!confirm('Are you sure you want to delete this item?')) return;
 
-            portfolioData[currentAdminTab] = portfolioData[currentAdminTab].filter(i => i.id !== id);
-            localStorage.setItem(`susmit_${currentAdminTab}`, JSON.stringify(portfolioData[currentAdminTab]));
-
             if (supabaseClient) {
                 try {
-                    await supabaseClient.from('portfolio_items').delete().eq('id', id);
+                    const { error } = await supabaseClient.from('portfolio_items').delete().eq('id', id);
+                    if (error) throw error;
                 } catch (err) {
-                    console.error(err);
+                    console.error('Supabase delete error:', err);
+                    alert('Supabase delete failed: ' + err.message);
                 }
             }
+
+            portfolioData[currentAdminTab] = portfolioData[currentAdminTab].filter(i => String(i.id) !== String(id));
+            localStorage.setItem(`susmit_${currentAdminTab}`, JSON.stringify(portfolioData[currentAdminTab]));
+            
             renderAll();
             renderAdminList();
         }
 
         async function handleProfileUpdate(event) {
             event.preventDefault();
-            const name = document.getElementById('profile-name-input').value;
-            const title = document.getElementById('profile-title-input').value;
-            const bio = document.getElementById('profile-bio-input').value;
+            const name = document.getElementById('profile-name-input').value.trim();
+            const title = document.getElementById('profile-title-input').value.trim();
+            const bio = document.getElementById('profile-bio-input').value.trim();
             const statusEl = document.getElementById('profile-update-status');
+            const submitBtn = document.getElementById('profile-submit-btn');
 
-            portfolioData.profile = { name, title, bio };
-            localStorage.setItem('susmit_profile', JSON.stringify(portfolioData.profile));
+            submitBtn.disabled = true;
+            statusEl.innerText = 'Syncing Profile...';
 
             if (supabaseClient) {
                 try {
-                    await supabaseClient.from('profile_info').upsert([{ id: 1, name, title, bio }]);
+                    const { error } = await supabaseClient.from('profile_info').upsert([{ id: 1, name, title, bio }]);
+                    if (error) throw error;
                 } catch (err) {
-                    console.error(err);
+                    console.error('Supabase profile error:', err);
                 }
             }
 
-            statusEl.innerText = 'Profile successfully synced to Supabase!';
+            portfolioData.profile = { name, title, bio };
+            localStorage.setItem('susmit_profile', JSON.stringify(portfolioData.profile));
             renderProfileInfo();
-            setTimeout(() => { statusEl.innerText = ''; }, 2000);
+
+            statusEl.innerText = 'Profile successfully synced to Supabase!';
+            setTimeout(() => {
+                statusEl.innerText = '';
+                submitBtn.disabled = false;
+            }, 1800);
         }
 
+        // Lightbox
         function openLightbox(imgSrc, caption) {
             document.getElementById('lightbox-img').src = imgSrc;
             document.getElementById('lightbox-caption').innerText = caption;
             document.getElementById('lightbox-modal').classList.remove('hidden');
+            lucide.createIcons();
         }
 
         function closeLightbox() {
             document.getElementById('lightbox-modal').classList.add('hidden');
         }
 
+        // Email Transmission
         function handleFormSubmit(event) {
             event.preventDefault();
             const statusEl = document.getElementById('form-status');
             const submitBtn = document.getElementById('submit-btn');
 
             submitBtn.disabled = true;
-            statusEl.innerText = 'Dispatching quantum mail directly to your inbox...';
+            statusEl.innerText = 'Dispatching quantum mail directly to inbox...';
 
             const SERVICE_ID = "service_gy057oe";
             const TEMPLATE_ID = "template_8k8ownq";
 
             emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, '#contact-form')
                 .then(function() {
-                    statusEl.innerText = 'Quantum transmission successfully delivered to your mail!';
+                    statusEl.innerText = 'Quantum transmission successfully delivered!';
                     document.getElementById('contact-form').reset();
+                })
+                .catch(function(error) {
+                    console.error('Transmission failed:', error);
+                    statusEl.innerText = 'Transmission failed to dispatch. Check network frequency.';
+                })
+                .finally(function() {
                     submitBtn.disabled = false;
-                }, function(error) {
-                    console.error('FAILED...', error);
-                    setTimeout(() => {
-                        statusEl.innerText = 'Mail dispatched successfully!';
-                        document.getElementById('contact-form').reset();
-                        submitBtn.disabled = false;
-                    }, 1000);
                 });
         }
+
+        // Initial fetch
+        fetchSupabaseData();
     </script>
 </body>
 </html>
